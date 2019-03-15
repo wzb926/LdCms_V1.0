@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>.NetCore快速开发后台框架-by ldcms</title>
+    <meta name="keywords" content="ASP.NET CORE 快速开发框架，ASP.NET 开源系统，ASP.NET MVC 开源系统，ASP.NET CORE 开源系统，ASP.NET CORE 后台框架，NetCore系统下载">
+    <meta name="description" content="ASP.NET CORE 快速开发框架，由蓝点科技自主研发的一套快速开发后台基础框架、内置后台基础常用功能。">
+</head>
+<body>
+    <div style="width:94%; height:auto; margin:0 auto;">
+        <h3>.NetCore快速开发后台框架</h3>
+        <div id="description">LdCms.Admin快速开发后台框架，由蓝点科技自主研发的一套快速开发后台基础框架、内置后台基础常用功能。</div>
+    </div>
+    <div style="width:94%; height:auto; margin:0 auto;">
+        <h4>系统说明</h4>
+        <div>.NetCore 快速开发后台框架</div>
+        <div>开发技术：.NetCore 2.1 + MSSQL 2012</div>
+        <div>开发工具：Visual Studio 2017</div>
+        <p> </p>
+        <div>安装说明：</div>
+        <div>第一步：还原数据库。</div>
+        <div>第二步：修改数据库链接地址。</div>
+        <p> </p>
+        <div>使用配置：</div>
+        <div>数据库链接配置：系统配置文件appsettings.json ConnectionStrings节点： "SqlServerConnection": "Server=127.0.0.1;User Id=sa;Password=123456;Database=LdCms_Db"</div>
+        <p> </p>
+        <div>官方QQ群：</div>
+        <div><img src="images/ldcms-qq-group.png" /></div>
+        <p> </p>
+        <div>演示地址：<a target="_blank" href="http://demo.ldcms.net/admin/login?companyid=300001">http://demo.ldcms.net/admin/login?companyid=300001</a></div>
+        <div>帐号：admin</div>
+        <div>密码：admin</div>
+        <p> </p>
+        <div>源码下载：最新版本请加交流群下载</div>
+    </div>
+    
+    
+
+
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $.mainu = {
+                init: function () {
+                    $.mainu.initHtml();
+                    $.mainu.saveLogs();
+                },
+                initHtml: function () {
+                    var url = "/cgi-bin/v2/config/get";
+                    var data = {
+                        uuid: "149c1791f9d24524a2e682616b4bf221"
+                    };
+                    $.get(url, data, function (result) {
+                        var errCode = result.errcode;
+                        var errMsg = result.errmsg;
+                        var data = result.data;
+                        if (errCode == 0) {
+                            $("title").text(data.title);
+                            $("meta[name='keywords']").attr({ "content": data.keywords });
+                            $("meta[name='description']").attr({ "content": data.description });
+                        }
+                        console.log(result);
+                    });
+                },
+                saveLogs: function () {
+                    var url = "/cgi-bin/v2/log/visitor/record/save?uuid=149c1791f9d24524a2e682616b4bf221";
+                    var data = {
+                        host: window.location.host,
+                        absolute_uri: window.location.href,
+                        query_string: encodeURIComponent(window.location.search)
+                    };
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json",
+                        cache: false,
+                        data: JSON.stringify(data),
+                        success: function (result) {
+                            console.log(result);
+                        }
+                    });
+                }
+            };
+            $(function () {
+                $.mainu.init();
+            });
+        })(jQuery);
+    </script>
+</body>
+</html>
